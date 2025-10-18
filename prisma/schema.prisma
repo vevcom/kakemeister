@@ -7,3 +7,10 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Cake {
+  id Int @id @default(autoincrement())
+  name String
+  pictureURL String?
+  bakerName String
+}
