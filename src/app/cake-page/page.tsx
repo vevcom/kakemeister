@@ -1,6 +1,7 @@
 "use server"
 
 import { get_all_cakes } from "../services/cake/actions"
+import CakeSlot from "./cakeComponent";
 import styles from "./page.module.scss"
 
 export default async function CakePage() {
@@ -21,17 +22,8 @@ export default async function CakePage() {
         <div>
             
             {cakes.map((data, index) =>(
-                <div className={styles.cakeAllign} key={index}>
-                    <h2>{data.name}</h2>
-                    <p>{data.bakerName} har bakt denne kaken.</p>
-                    {
-                        !data.pictureUrl ? //Er det en bildelenk?
-                        <></> // Hvis nei, ikke legg inn bilde
-                        :
-                        <img className={styles.cakePicture} src={data.pictureUrl}></img> // Hvis ja, legg inn bilde
-                    }
-
-
+                <div key={index}>
+                    <CakeSlot cakeData={data}></CakeSlot>
                 </div>
                 ) 
             )}
