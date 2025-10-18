@@ -2,6 +2,7 @@
 
 import { get_all_cakes } from "@/services/cake/actions"
 import styles from "./page.module.scss"
+import CakeSlot from "./cakeComponent"
 
 
 export default async function CakePage() {
@@ -20,14 +21,9 @@ export default async function CakePage() {
         <div>
             {cakes.map((data, index) => (
                 <div key={index}>
-                    <h2>{data.name}</h2>
-                    <p>{data.bakerName} har bakt denne kaken. </p>
-                    {
-                        !data.pictureUrl ?  // Er det en bildelenke?
-                        <></> // hvis nei, ikke legg in bilde.
-                        :
-                        <img className={styles.cakePicture} src={data.pictureUrl}></img>   //hvis ja. legg inn et bilde
-                    } 
+                    <CakeSlot cakeData={data}>
+                    
+                    </CakeSlot>
                 </div>
                 
 
