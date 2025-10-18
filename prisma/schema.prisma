@@ -13,4 +13,12 @@ model Cake {
   name String
   pictureURL String?
   bakerName String
+  reviews Review[]
+}
+
+model Review{
+  id String @id @default(cuid())
+  rating Int
+  cake Cake @relation(references: [id],fields: [cakeId],onDelete:Cascade)
+  cakeId Int 
 }
