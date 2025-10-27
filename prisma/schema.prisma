@@ -12,6 +12,7 @@ model Cake {
   id Int @id @default(autoincrement())
   name String 
   pictureUrl String?
+  pictureBase64  String?
   bakerName String
   reviews Review[] 
 }
