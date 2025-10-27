@@ -46,7 +46,7 @@ export async function userratings(cakeId:number) {
         select:{
             reviews:{
                 select:{
-                    
+                    //trenger å finne bruker basert på review, legg inn en referanse i prisma-dokumentet
                 }
             }
         }
