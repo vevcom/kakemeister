@@ -1,17 +1,15 @@
-import { get_rating } from "@/services/review/actions";
+import { get_rating, userratings } from "@/services/review/actions";
 import styles from "./page.module.scss"
-import RatingUIen from "./ratingUI"
 
-type cakeType = {
-    name: string;
-    bakerName: string;
-    pictureUrl: string | null;
-    id: number;
+
+type UserInfo = {
+    username: string;
+    cakeid: number;
 }
 
-export default async function CakeSlot({cakeData}:{cakeData:cakeType}){
-    
-    const ratingData = await get_rating(cakeData.id)
+export default async function RatingUIen({username, cakeid}: UserInfo){
+
+    const userRatings = await userratings(username)
 
     if (!ratingData){
         return(
@@ -43,7 +41,6 @@ export default async function CakeSlot({cakeData}:{cakeData:cakeType}){
                     } 
                     <p>{cakeData.bakerName} har bakt denne kaken.2</p>
                     <p>Denne kaken har ikke fått noen anmeldelser ennå. </p>
-                    <RatingUIen cakeid={123} username="23"/>
                     
         </div>
 

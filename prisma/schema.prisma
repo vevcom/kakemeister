@@ -23,3 +23,6 @@ model Review{
   cakeId Int 
 }
 
+model User {
+  
+}
