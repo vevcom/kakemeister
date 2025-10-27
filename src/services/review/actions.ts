@@ -27,7 +27,7 @@ export async function get_rating(cakeId:number) {
 
 }
 
-export async function userratings(username:string) {
+export async function userratings(cakeId:number) {
     const ratings = await prisma.review.aggregate({
         where:{
             cakeId:cakeId
@@ -37,6 +37,18 @@ export async function userratings(username:string) {
         },
         _count:{
             rating:true
+        }
+    })
+    const data = await prisma.cake.findMany({
+        where:{
+            id:cakeId,
+        },
+        select:{
+            reviews:{
+                select:{
+                    
+                }
+            }
         }
     })
 
