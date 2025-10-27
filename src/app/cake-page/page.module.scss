@@ -1,5 +1,34 @@
+.page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px black;
+}
+
 .cakePicture{
-  width: 30%;
+  width: 100%;
   height: auto;
-    border-radius: 200px;
+  border-radius: 200px;
+}
+
+.anmeldelse {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  border: 5px solid blue;
+  margin: 0px;
+  padding: 20px 0px;
+}
+
+.kake{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: green;
+  border: 20px solid green;
+  border-radius: 50px;
 }

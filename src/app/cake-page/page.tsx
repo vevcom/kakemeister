@@ -18,7 +18,7 @@ export default async function CakePage() {
         );
     }
     return (
-        <div>
+        <div className={styles.anmeldelse}>
             {cakes.map((data, index) => (
                 <div key={index}>
                     <CakeSlot cakeData={data}>
