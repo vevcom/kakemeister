@@ -9,7 +9,7 @@ type UserInfo = {
 
 export default async function RatingUIen({username, cakeid}: UserInfo){
 
-    const userRatings = await userratings(username)
+    const userRatings = await userratings(cakeid)
 
     if (!ratingData){
         return(
