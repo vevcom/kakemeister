@@ -3,18 +3,27 @@
 import prisma from "@/app/prisma"
 import { revalidatePath } from "next/cache"
 
-export async function add_cake(data: {
+export async function add_cake({
+  name,
+  bakerName,
+  pictureBase64,
+  userID
+}: {
   name: string
   bakerName: string
   pictureBase64?: string | null
+  userID: string
 }) {
   try {
     await prisma.cake.create({
       data: {
-        name: data.name,
-        bakerName: data.bakerName,
-        pictureBase64: data.pictureBase64 || null,
-      },
+        name,
+        bakerName,
+        pictureBase64: pictureBase64 || null,
+        user: {
+          connect: { id: userID }
+        }
+      }
     })
 
     revalidatePath("/cake-page")

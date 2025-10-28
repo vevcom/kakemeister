@@ -1,13 +1,23 @@
 "use client"
-
+import styles from "./page.module.scss"
 import { useState, FormEvent, ChangeEvent } from "react"
-import { add_cake } from "@/services/adding-cake/actions"
 import { useRouter } from "next/navigation"
+import { add_cake } from "@/services/adding-cake/actions"
+import { get_users_by_name } from "@/services/user/actions"
+
+type FoundUser = {
+  id: string
+  name: string
+  username: string
+}
 
 export default function AddCakePage() {
   const router = useRouter()
-  const [name, setName] = useState("")
-  const [bakerName, setBakerName] = useState("")
+
+  const [cakeName, setCakeName] = useState("")
+  const [bakerSearch, setBakerSearch] = useState("")
+  const [foundUsers, setFoundUsers] = useState<FoundUser[]>([])
+  const [selectedUserID, setSelectedUserID] = useState<string | null>(null)
   const [pictureBase64, setPictureBase64] = useState<string | null>(null)
   const [message, setMessage] = useState("")
 
@@ -15,12 +25,12 @@ export default function AddCakePage() {
     const file = e.target.files?.[0]
     if (!file) return
 
-    // Optional: limit file size
-    if (file.size > 1_000_000) { // 1MB
+    if (file.size > 1_000_000) {
       alert("Bildet er for stort! Maks 1MB.")
       return
     }
 
+    // Reads uploaded image as base64
     const reader = new FileReader()
     reader.onloadend = () => {
       setPictureBase64(reader.result as string)
@@ -28,75 +38,114 @@ export default function AddCakePage() {
     reader.readAsDataURL(file)
   }
 
+  // Search for users when baker name changes
+  const handleBakerChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+    setBakerSearch(value)
+    setSelectedUserID(null)
+
+    if (value.trim().length === 0) {
+      setFoundUsers([])
+      return
+    }
+
+    const users = await get_users_by_name(value)
+    setFoundUsers(users)
+  }
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
+    if (!selectedUserID && foundUsers.length > 1) {
+      setMessage("Velg riktig bruker fra listen.")
+      return
+    }
+
+    const userID = selectedUserID ?? (foundUsers.length === 1 ? foundUsers[0].id : null)
+
+    if (!userID) {
+      setMessage("Fant ingen bruker med det navnet.")
+      return
+    }
+
     const result = await add_cake({
-      name,
-      bakerName,
+      name: cakeName,
+      bakerName: bakerSearch,
       pictureBase64,
+      userID
     })
 
     if (result.success) {
       setMessage("Kaken ble lagt til 🍰")
-      router.push("/cakes") // or wherever your cake list is
+      router.push("/cake-page")
     } else {
       setMessage(result.message || "Noe gikk galt")
     }
   }
 
   return (
-    <div style={{ maxWidth: "400px", margin: "2rem auto" }}>
+    <div className={styles.cakeTitle}>
       <h1>Legg til en ny kake 🍰</h1>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="name">Kakenavn</label>
+          <label htmlFor="cakeName">Kakenavn</label>
           <input
-            id="name"
+            id="cakeName"
             type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={cakeName}
+            onChange={(e) => setCakeName(e.target.value)}
             required
           />
         </div>
 
         <div>
-          <label htmlFor="bakerName">Baker</label>
+          <label htmlFor="bakerSearch">Baker (navn eller brukernavn)</label>
           <input
-            id="bakerName"
+            id="bakerSearch"
             type="text"
-            value={bakerName}
-            onChange={(e) => setBakerName(e.target.value)}
+            value={bakerSearch}
+            onChange={handleBakerChange}
             required
           />
         </div>
+
+        {/* Show dropdown only if multiple users are found */}
+        {foundUsers.length > 1 && (
+          <div>
+            <label htmlFor="userSelect">Flere brukere funnet - velg riktig:</label>
+            <select
+              id="userSelect"
+              value={selectedUserID ?? ""}
+              onChange={(e) => setSelectedUserID(e.target.value)}
+              required
+            >
+              <option value="">Velg bruker</option>
+              {foundUsers.map((u) => (
+                <option key={u.id} value={u.id}>
+                  {u.name} ({u.username})
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
 
         <div>
           <label htmlFor="picture">Last opp bilde</label>
-          <input
-            id="picture"
-            type="file"
-            accept="image/*"
-            onChange={handleFileChange}
-          />
+          <input id="picture" type="file" accept="image/*" onChange={handleFileChange} />
         </div>
 
         {pictureBase64 && (
-          <div style={{ marginTop: "1rem" }}>
+          <div className={styles.base64cake}>
             <p>Forhåndsvisning:</p>
             <img
               src={pictureBase64}
-              alt="Forhåndsvisning av kake"
-              style={{
-                maxWidth: "100%",
-                borderRadius: "8px",
-                boxShadow: "0 2px 6px rgba(0,0,0,0.2)",
-              }}
+              alt="Forhåndsvisning"
+              className={styles.base64cakeAlt}
             />
           </div>
         )}
 
-        <button type="submit" style={{ marginTop: "1rem" }}>
+        <button type="submit" className={styles.submitButton}>
           Legg til kake
         </button>
       </form>

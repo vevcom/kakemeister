@@ -25,20 +25,21 @@ model User {
   mail       String
   starSign   String
   cakes      Cake[]
-  group      Group?   @relation("user", references: [id], fields: [groupID])
+  group      Group?  @relation("user", references: [id], fields: [groupID])
   groupID    String?
   groupAdmin Group?  @relation("admin")
   //Add groups as well
 }
 
 model Cake {
-  id         Int      @id @default(autoincrement())
-  name       String
-  pictureUrl String?
-  bakerName  String
-  reviews    Review[]
-  user       User     @relation(references: [id], fields: [userID], onDelete: Cascade)
-  userID     String
+  id            Int      @id @default(autoincrement())
+  name          String
+  pictureUrl    String?
+  pictureBase64 String?
+  bakerName     String
+  reviews       Review[]
+  user          User     @relation(references: [id], fields: [userID], onDelete: Cascade)
+  userID        String
 }
 
 model Review {
