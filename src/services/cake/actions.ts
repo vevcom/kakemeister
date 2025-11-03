@@ -2,15 +2,16 @@
 
 import prisma from "@/app/prisma";
 
-
-
 export async function get_all_cakes() {
-    const data = await prisma.cake.findMany()
-
-    if (!data){
-        return;
+  const data = await prisma.cake.findMany({
+    include: {
+      user: {
+        select: {
+          username: true
+        }
+      }
     }
-    
+  })
 
-    return data
+  return data
 }
