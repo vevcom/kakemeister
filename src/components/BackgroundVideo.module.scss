@@ -1,0 +1,9 @@
+.backgroundVideo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;   // dekker hele bredden
+  height: 100vh;  // dekker hele høyden
+  object-fit: contain; // (eventuelt : contain;) beskjærer videoen for å fylle skjermen
+  z-index: -1;
+}
