@@ -11,35 +11,49 @@ export default async function RatingUIen({username, cakeid}: UserInfo){
 
     const userRatings = await userratings(cakeid)
 
-    if (!ratingData){
+    if (!userRatings){
         return(
-            <div className={styles.kake}>
-                    <h2 className={styles.h22}>{cakeData.name}</h2>
-                    {
-                        !cakeData.pictureUrl ?  // Er det en bildelenke?
-                        <></> // hvis nei, ikke legg inn bilde.
-                        :
-                        <img className={styles.cakePicture} src={cakeData.pictureUrl}></img>   //hvis ja. legg inn et bilde
-                    }
-                    <p>{cakeData.bakerName} har bakt denne kaken.1</p>
-                    <p>Kunne ikke hente anmeldelser.</p> 
+            <div className={styles.anmeld}>
+                <h3>Hva rater du kaken?</h3>
+                <div className={styles.radioknapper}>
+                    <input type="radio" id="1" name="fav_language" value="HTML"/>
+                    <label for="html">1</label>
+                    <input type="radio" id="2" name="fav_language" value="CSS"/>
+                    <label for="css">2</label>
+                    <input type="radio" id="3" name="fav_language" value="JavaScript"/>
+                    <label for="javascript">3</label>
+                    <input type="radio" id="4" name="fav_language" value="HTML"/>
+                    <label for="html">4</label>
+                    <input type="radio" id="5" name="fav_language" value="CSS"/>
+                    <label for="css">5</label>
+                    <input type="radio" id="6" name="fav_language" value="JavaScript"/>
+                    <label for="javascript">6</label>
+                    <input type="radio" id="7" name="fav_language" value="HTML"/>
+                    <label for="html">7</label>
+                    <input type="radio" id="8" name="fav_language" value="CSS"/>
+                    <label for="css">8</label>
+                    <input type="radio" id="9" name="fav_language" value="JavaScript"/>
+                    <label for="javascript">9</label>
+                    <input type="radio" id="10" name="fav_language" value="HTML"/>
+                    <label for="html">10</label>
+                </div>
+                <label for="tilbakemelding">Tilbakemelding (valgfritt):</label>
+                <input type="text" id="tilbakemelding" name="Tilbakemelding"></input>
             </div>
-
         ); 
     }
 
    
-    if (ratingData.countRating == 0){
+    if (userRatings.countRating == 0){
         return(
             <div className={styles.kake}>
-                    <h2>{cakeData.name}</h2>
+                    <h2>{username}</h2>
                     {
-                        !cakeData.pictureUrl ?  // Er det en bildelenke?
-                        <></> // hvis nei, ikke legg inn bilde.
-                        :
-                        <img className={styles.cakePicture} src={cakeData.pictureUrl}></img>   //hvis ja. legg inn et bilde
+                        //!cakeData.pictureUrl ?  // Er det en bildelenke?
+                        <></> // hvis nei, ikke legg inn bilde.                        
+
                     } 
-                    <p>{cakeData.bakerName} har bakt denne kaken.2</p>
+                    <p>{username} har bakt denne kaken.2</p>
                     <p>Denne kaken har ikke fått noen anmeldelser ennå. </p>
                     
         </div>
@@ -52,15 +66,15 @@ export default async function RatingUIen({username, cakeid}: UserInfo){
     
     return(
         <div className={styles.kake}>
-                    <h2>{cakeData.name}</h2>
+                    <h2>{username}</h2>
                     {
-                        !cakeData.pictureUrl ?  // Er det en bildelenke?
+                        //!cakeData.pictureUrl ?  // Er det en bildelenke?
                         <></> // hvis nei, ikke legg in bilde.
-                        :
-                        <img className={styles.cakePicture} src={cakeData.pictureUrl}></img>   //hvis ja. legg inn et bilde
+                        
+                        
                     }
-                    <p>{cakeData.bakerName} har bakt denne kaken. </p>
-                    <p>Denne kaken har fått {ratingData.avgRating}/10 av {ratingData.countRating} anmeldelse(r)</p>
+                    <p>{username} har bakt denne kaken. </p>
+                    <p>Denne kaken har fått {userRatings.avgRating}/10 av {userRatings.countRating} anmeldelse(r)</p>
                      
         </div>
     );

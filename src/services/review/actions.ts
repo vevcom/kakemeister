@@ -39,26 +39,26 @@ export async function userratings(cakeId:number) {
             rating:true
         }
     })
-    const data = await prisma.cake.findMany({
+    const data = await prisma.cake.findUnique({
         where:{
             id:cakeId,
         },
         select:{
             reviews:{
                 select:{
-                    //trenger å finne bruker basert på review, legg inn en referanse i prisma-dokumentet
+                    rating:true,
                 }
             }
         }
     })
 
-    if(!rating){
+    if(!data){
         return;
     }
 
     return {
-        avgRating: rating._avg.rating,
-        countRating: rating._count.rating
+        avgRating: ratings._avg.rating,
+        countRating: ratings._count.rating
     }
 
 }
