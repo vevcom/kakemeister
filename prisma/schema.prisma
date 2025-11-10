@@ -10,10 +10,10 @@ datasource db {
 model Group {
   id            String  @id @default(cuid())
   groupName     String
-  users         User[]  @relation("user")
   logoUrl       String?
-  administrator User    @relation("admin", fields: [adminID], references: [id])
   adminID       String  @unique
+  administrator User    @relation("admin", fields: [adminID], references: [id])
+  users         User[]  @relation("user")
 }
 
 model User {
@@ -24,11 +24,11 @@ model User {
   pictureUrl String?
   mail       String
   starSign   String
-  cakes      Cake[]
-  group      Group?   @relation("user", references: [id], fields: [groupID])
   groupID    String?
+  cakes      Cake[]
+  reviews    Review[]
   groupAdmin Group?  @relation("admin")
-  //Add groups as well
+  group      Group?  @relation("user", fields: [groupID], references: [id])
 }
 
 model Cake {
@@ -36,15 +36,16 @@ model Cake {
   name       String
   pictureUrl String?
   bakerName  String
-  reviews    Review[]
-  user       User     @relation(references: [id], fields: [userID], onDelete: Cascade)
   userID     String
+  user       User     @relation(fields: [userID], references: [id], onDelete: Cascade)
+  reviews    Review[]
 }
 
 model Review {
   id     String @id @default(cuid())
   rating Int
-  cake   Cake   @relation(references: [id], fields: [cakeId], onDelete: Cascade)
   cakeId Int
-  //Lag en greie som 
+  cake   Cake   @relation(fields: [cakeId], references: [id], onDelete: Cascade)
+  reviewer User      @relation(references: [id], fields: [reviewerID], onDelete: Cascade)
+  reviewerID String
 }
