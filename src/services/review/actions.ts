@@ -52,14 +52,14 @@ export async function userratings(cakeId:number) {
         }
     })
 
-    const reviewerIDs = await prisma.review.findMany({
-        where: {
-            cakeId: cakeId
-        },
-        select: {
-            reviewerID: true
-        }
-    })
+    //const reviewerIDs = await prisma.review.findMany({
+    //    where: {
+    //        cakeId: cakeId
+    //    },
+    //    select: {
+    //        reviewerID: true
+    //    }
+    //})
 
 
     if(!data){
