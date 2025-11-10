@@ -43,8 +43,8 @@ export default async function CakeSlot({cakeData}:{cakeData:cakeType}){
                     } 
                     <p>{cakeData.bakerName} har bakt denne kaken.2</p>
                     <p>Denne kaken har ikke fått noen anmeldelser ennå. </p>
-                    <RatingUIen cakeid={123} username="23"/>
-                    
+                    <RatingUIen cakeid={cakeData.id} username="23"/>
+                    <p>{typeof 123}</p>
         </div>
 
         ); 
@@ -62,9 +62,9 @@ export default async function CakeSlot({cakeData}:{cakeData:cakeType}){
                         :
                         <img className={styles.cakePicture} src={cakeData.pictureUrl}></img>   //hvis ja. legg inn et bilde
                     }
-                    <p>{cakeData.bakerName} har bakt denne kaken. </p>
+                    <p>{cakeData.bakerName} har bakt denne kaken.3 </p>
                     <p>Denne kaken har fått {ratingData.avgRating}/10 av {ratingData.countRating} anmeldelse(r)</p>
-                     
+                    <RatingUIen cakeid={cakeData.id} username="23"/>
         </div>
     );
 }
