@@ -1,4 +1,4 @@
-import { get_rating } from "@/services/review/actions";
+import { get_rating, userratings } from "@/services/review/actions";
 import styles from "./page.module.scss"
 import RatingUIen from "./ratingUI"
 
@@ -12,6 +12,7 @@ type cakeType = {
 export default async function CakeSlot({cakeData}:{cakeData:cakeType}){
     
     const ratingData = await get_rating(cakeData.id)
+    const userRatings = await userratings(cakeData.id)
 
     if (!ratingData){
         return(
@@ -43,7 +44,11 @@ export default async function CakeSlot({cakeData}:{cakeData:cakeType}){
                     } 
                     <p>{cakeData.bakerName} har bakt denne kaken.2</p>
                     <p>Denne kaken har ikke fått noen anmeldelser ennå. </p>
-                    <RatingUIen cakeid={cakeData.id} username="23"/>
+                    <RatingUIen 
+                    cakeid={cakeData.id} 
+                    username="23"
+                    userRatings={userRatings}
+                    />
                     <p>{typeof 123}</p>
         </div>
 

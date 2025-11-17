@@ -2,7 +2,6 @@
 
 import prisma from "@/app/prisma"
 
-
 export async function get_rating(cakeId:number) {
     const rating = await prisma.review.aggregate({
         where:{
@@ -52,15 +51,14 @@ export async function userratings(cakeId:number) {
         }
     })
 
-    //const reviewerIDs = await prisma.review.findMany({
-    //    where: {
-    //        cakeId: cakeId
-    //    },
-    //    select: {
-    //        reviewerID: true
-    //    }
-    //})
-
+    const reviewerIDs = await prisma.review.findMany({
+        where: {
+            cakeId: cakeId
+        },
+        select: {
+            reviewerID: true
+        }
+    })
 
     if(!data){
         return;
@@ -68,7 +66,8 @@ export async function userratings(cakeId:number) {
 
     return {
         avgRating: ratings._avg.rating,
-        countRating: ratings._count.rating
+        countRating: ratings._count.rating,
+        reviewerIDs: reviewerIDs
     }
 
 }
