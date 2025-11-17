@@ -1,17 +1,34 @@
+"use client";
 import { get_rating, userratings } from "@/services/review/actions";
 import styles from "./page.module.scss"
+
+
 
 
 type UserInfo = {
     username: string;
     cakeid: number;
+    userRatings: null | object;
 }
 
-export default async function RatingUIen({username, cakeid}: UserInfo){
+export default function RatingUIen({username, cakeid, userRatings}: UserInfo){
+    
+    const handleSubmit = () => {
+        const rating = document.querySelector(`input[name="${cakeid}"]:checked`)?.value;
+        const feedback = (document.getElementById("tilbakemelding") as HTMLInputElement)?.value;
 
-    const userRatings = await userratings(cakeid)
+        if (!rating) {
+            alert("Du må velge en vurdering før du sender inn.");
+            return;
+        }
 
-    if (!userRatings){
+        //her kan du sende data til backend eller logge det
+        console.log("Rating:", rating);
+        console.log("Tilbakemelding:", feedback);
+    };
+
+
+    if (!userRatings){ //Hvis det ikke er noen ratings på kaken
         return(
             <div className={styles.anmeld}>
                 <h3>Hva rater du kaken?</h3>
@@ -48,12 +65,13 @@ export default async function RatingUIen({username, cakeid}: UserInfo){
                 </div>
                     <label htmlFor="tilbakemelding">Tilbakemelding (valgfritt):</label>
                     <input type="text" id="tilbakemelding" name="navn" />
+                <button onClick={() => handleSubmit()}>Send inn vurdering</button>
             </div>
         ); 
     }
 
-   
-    if (userRatings.countRating == 0){
+
+    if (userRatings.countRating == 0){ //hvis det ikke er noen anmeldelser
         return(
             <div className={styles.anmeld}>
                 <h3>Hva rater du kaken?</h3>
@@ -90,12 +108,20 @@ export default async function RatingUIen({username, cakeid}: UserInfo){
                 </div>
                     <label htmlFor="tilbakemelding">Tilbakemelding (valgfritt):</label>
                     <input type="text" id="tilbakemelding" name="navn" />
+                <button onClick={() => handleSubmit()}>Send inn vurdering</button>
             </div>
 
         ); 
     }
 
-
+    var userid = 12
+    if (Array.isArray(userRatings)) {
+        if (userRatings.includes(userid)) {
+            return (
+            <div><p>Du har ratet denne kaken:)</p></div>
+            );
+        }
+    }
     
     return(
         <div className={styles.kake}>
