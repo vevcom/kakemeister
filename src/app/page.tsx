@@ -6,7 +6,7 @@ export default function Home() {
     <>
       <BackgroundVideo />
       <div style={{ position: "relative", zIndex: 1 }}>
-        <h1 className={styles.title}>Kakemeiser</h1>
+        <h1 className={styles.title}>Kakemeister</h1>
       </div>
     </>
   );

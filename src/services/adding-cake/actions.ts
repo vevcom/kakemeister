@@ -19,10 +19,9 @@ export async function add_cake({
       data: {
         name,
         bakerName,
-        pictureBase64: pictureBase64 || null,
-        user: {
-          connect: { id: userID }
-        }
+        // Prisma schema currently has `pictureUrl` not `pictureBase64` and no user relation.
+        // Store the base64 string in `pictureUrl` (nullable) so the rest of the app can render it.
+        pictureUrl: pictureBase64 || null
       }
     })
 

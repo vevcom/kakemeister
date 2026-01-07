@@ -10,7 +10,7 @@ export default async function CakePage() {
   if (!cakes || cakes.length === 0) {
     return (
       <>
-        <BackgroundVideo />
+        
         <h1>Det er ingen kaker her. Å nei!</h1>
       </>
     );
@@ -18,7 +18,7 @@ export default async function CakePage() {
 
   return (
     <>
-      <BackgroundVideo />
+      
       <div style={{ position: "relative", zIndex: 1 }}>
         {cakes.map((data, index) => (
           <div key={index}>
