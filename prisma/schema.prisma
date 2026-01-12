@@ -2,27 +2,48 @@ generator client {
   provider = "prisma-client-js"
 }
 
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-model Cake {
-  id Int @id @default(autoincrement())
-  name String 
-  pictureUrl String?
-  bakerName String
-  reviews Review[] 
-}
-
-model Review{
-  id String @id @default(cuid()) 
-  rating Int 
-  cake Cake @relation(references: [id], fields:[cakeId],onDelete: Cascade)
-  cakeId Int 
+model Group {
+  id            String  @id @default(cuid())
+  groupName     String
+  users         User[]  @relation("user")
+  logoUrl       String?
+  administrator User    @relation("admin", fields: [adminID], references: [id])
+  adminID       String  @unique
 }
 
 model User {
-  
+  id         String  @id @default(cuid())
+  username   String
+  password   String
+  name       String
+  pictureUrl String?
+  mail       String
+  starSign   String
+  cakes      Cake[]
+  group      Group?   @relation("user", references: [id], fields: [groupID])
+  groupID    String?
+  groupAdmin Group?  @relation("admin")
+  //Add groups as well
+}
+
+model Cake {
+  id         Int      @id @default(autoincrement())
+  name       String
+  pictureUrl String?
+  bakerName  String
+  reviews    Review[]
+  user       User     @relation(references: [id], fields: [userID], onDelete: Cascade)
+  userID     String
+}
+
+model Review {
+  id     String @id @default(cuid())
+  rating Int
+  cake   Cake   @relation(references: [id], fields: [cakeId], onDelete: Cascade)
+  cakeId Int
 }
