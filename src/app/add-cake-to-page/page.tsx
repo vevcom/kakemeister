@@ -51,6 +51,10 @@ export default function AddCakePage() {
 
     const users = await get_users_by_name(value)
     setFoundUsers(users)
+    
+    console.log("Fant brukere:", users)
+    
+    setFoundUsers(users)
   }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
