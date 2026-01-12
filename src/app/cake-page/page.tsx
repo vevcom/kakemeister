@@ -1,9 +1,8 @@
-"use server"
+"use server";
 
-import { get_all_cakes } from "@/services/cake/actions"
-import styles from "./page.module.scss"
-import CakeSlot from "./cakeComponent"
-
+import { get_all_cakes } from "@/services/cake/actions";
+import CakeSlot from "./cakeComponent";
+import BackgroundVideo from "@/components/BackgroundVideo";
 
 export default async function CakePage() {
     const cakes = await get_all_cakes()
@@ -18,7 +17,7 @@ export default async function CakePage() {
         );
     }
     return (
-        <div className={styles.anmeldelse}>
+        <div>
             {cakes.map((data, index) => (
                 <div key={index}>
                     <CakeSlot cakeData={data}>
