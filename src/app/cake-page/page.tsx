@@ -1,31 +1,33 @@
-"use server";
+"use server"
 
-import { get_all_cakes } from "@/services/cake/actions";
-import CakeSlot from "./cakeComponent";
-import BackgroundVideo from "@/components/BackgroundVideo";
+import { get_all_cakes } from "@/services/cake/actions"
+import styles from "./page.module.scss"
+import CakeSlot from "./cakeComponent"
+
 
 export default async function CakePage() {
-  const cakes = await get_all_cakes();
+    const cakes = await get_all_cakes()
 
-  if (!cakes || cakes.length === 0) {
+    if (!cakes) {
+            return <h1>Det er ingen kaker her. Å nei!</h1>
+    }
+
+    if (cakes.length == 0){
+        return (
+            <h1>Det er ingen kaker. Å nei!!</h1>
+        );
+    }
     return (
-      <>
-        
-        <h1>Det er ingen kaker her. Å nei!</h1>
-      </>
-    );
-  }
+        <div className={styles.anmeldelse}>
+            {cakes.map((data, index) => (
+                <div key={index}>
+                    <CakeSlot cakeData={data}>
+                    
+                    </CakeSlot>
+                </div>
+                
 
-  return (
-    <>
-      
-      <div style={{ position: "relative", zIndex: 1 }}>
-        {cakes.map((data, index) => (
-          <div key={index}>
-            <CakeSlot cakeData={data} />
-          </div>
-        ))}
-      </div>
-    </>
-  );
+            ))}      
+        </div>
+    );
 }
