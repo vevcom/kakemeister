@@ -10,10 +10,7 @@ type bruker = {
   brukernavn: string
 }
 
-export default async function LoginPage() {
-  const [tekst, setTekst] = useState("")
-  
-  const login = async (brukernavn) => {
+const login = async (brukernavn) => {
     
 
     if (!brukernavn) {
@@ -33,9 +30,14 @@ export default async function LoginPage() {
       localStorage.setItem("brukernavn", brukernavn);
       alert("Du er logget inn")
       
-    }
-
   }
+
+}
+
+export default function LoginPage() {
+  const [tekst, setTekst] = useState("")
+  
+  
 
   return (
     <div>

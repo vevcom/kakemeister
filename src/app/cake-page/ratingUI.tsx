@@ -2,6 +2,7 @@
 import { get_rating, userratings } from "@/services/review/actions";
 import styles from "./page.module.scss"
 import { add_review } from "@/services/review/actions"
+import prisma from "../prisma";
 
 
 
@@ -14,7 +15,17 @@ type UserInfo = {
 export default async function RatingUIen({username, cakeid, userRatings}: UserInfo){
     
     const handleSubmit = async () => {
-        var userId = "cmh9iaq2i0000mik1ckhbyqqb"; //bør initialiseres på annen måte
+        let aktivbruker = localStorage.getItem("brukernavn");
+        if (aktivbruker) {
+            const userobj = await prisma.user.findFirst({
+            where: {
+                username:aktivbruker
+            }})
+        } else {
+            alert("Logg inn først please")
+            return;
+        }
+        let userId = userobj.id; //bør initialiseres på annen måte
         const ratingvalue = document.querySelector(`input[name="${cakeid}"]:checked`)?.value;
         var feedback = (document.getElementById("tilbakemelding") as HTMLInputElement)?.value;
         const rating = Number(ratingvalue)
