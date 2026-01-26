@@ -17,7 +17,6 @@ export default async function RatingUIen({username, cakeid, userRatings}: UserIn
         var userId = "cmh9iaq2i0000mik1ckhbyqqb"; //bør initialiseres på annen måte
         const ratingvalue = document.querySelector(`input[name="${cakeid}"]:checked`)?.value;
         var feedback = (document.getElementById("tilbakemelding") as HTMLInputElement)?.value;
-        feedback = 'balls'
         const rating = Number(ratingvalue)
         if (!rating) {
             alert("Du må velge en vurdering før du sender inn.");
@@ -35,6 +34,7 @@ export default async function RatingUIen({username, cakeid, userRatings}: UserIn
                 rating,
                 cakeId: cakeid,
                 userId: userId ?? null,
+                reviewString: feedback ?? null,
         })
 
         if (result.success) {

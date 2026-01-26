@@ -71,10 +71,12 @@ export async function add_review({
   rating,
   cakeId,
   userId,
+  reviewString,
 }: {
   rating: number
   cakeId: number
   userId?: string | null
+  reviewString?: string | null
 }) {
   try {
     const review = await prisma.review.create({
@@ -82,6 +84,7 @@ export async function add_review({
         rating,
         cakeId,
         userId: userId ?? null,
+        reviewString: reviewString ?? null,
       },
     })
 
