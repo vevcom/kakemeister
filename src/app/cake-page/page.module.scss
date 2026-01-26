@@ -1,6 +1,49 @@
-.cakePicture{
-  width: 30%;
-  height: auto;
-    border-radius: 200px;
+.page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px black;
 }
 
+.cakePicture{
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+}
+
+.anmeldelse {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  border: 5px solid blue;
+  margin: 0px;
+  padding: 20px 0px;
+}
+
+.kake{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: green;
+  border: 20px solid green;
+  border-radius: 40px;
+  margin: 20px;
+}
+
+.anmeld{
+  display: flex;
+  background-color: red;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.radioknapper {
+  display: flex;
+  gap: 5px;
+}

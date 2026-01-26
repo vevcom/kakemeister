@@ -47,4 +47,5 @@ model Review {
   rating Int
   cake   Cake   @relation(references: [id], fields: [cakeId], onDelete: Cascade)
   cakeId Int
+  userId String?
 }
