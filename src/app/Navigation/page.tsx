@@ -10,6 +10,7 @@ export default function Nav() {
         <li><Link href="/cake-page">Kakeliste</Link></li>
         <li><Link href="/add-cake-to-page">Legg til kake</Link></li>
         <li><Link href="/leaderboard-page">Leaderboard</Link></li>
+        <li><Link href="/login-page">Login</Link></li>
       </ul>
     </nav>
   )
