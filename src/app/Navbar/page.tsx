@@ -3,13 +3,13 @@ import Link from "next/link"
 
 export default function Nav() {
     return(
-        <div id="Header">
-            <ol>
-                <li className="header_item"><Link href="/">Hjem</Link></li>
-                <li className="header_item"><Link href="/">Hjem</Link></li>
-                <li className="header_item"><Link href="/">Hjem</Link></li>
-                <li className="header_item"><Link href="/">Hjem</Link></li>
-                <li className="header_item"><Link href="/">Hjem</Link></li>
+        <div className={styles.header}>
+            <ol className={styles.navbar}>
+                <li className={styles.header_item}><Link href="/">Hjem</Link></li>
+                <li className={styles.header_item}><Link href="/Cake_review">Cake Review</Link></li>
+                <li className={styles.header_item}><Link href="/">Hjem</Link></li>
+                <li className={styles.header_item}><Link href="/">Hjem</Link></li>
+                <li className={styles.header_item}><Link href="/">Hjem</Link></li>
             </ol>
         </div>
     )
