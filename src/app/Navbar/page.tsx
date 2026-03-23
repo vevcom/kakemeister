@@ -7,9 +7,8 @@ export default function Nav() {
             <ol className={styles.navbar}>
                 <li className={styles.header_item}><Link href="/">Hjem</Link></li>
                 <li className={styles.header_item}><Link href="/Cake_review">Cake Review</Link></li>
-                <li className={styles.header_item}><Link href="/">Hjem</Link></li>
-                <li className={styles.header_item}><Link href="/">Hjem</Link></li>
-                <li className={styles.header_item}><Link href="/">Hjem</Link></li>
+                <li className={styles.header_item}><Link href="/Statistikk">Statistikk</Link></li>
+                <li className={styles.header_item}><Link href="/Login_page">Login</Link></li>
             </ol>
         </div>
     )
