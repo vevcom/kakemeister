@@ -1,10 +1,12 @@
+import styles from "./page.module.scss"
+
 type Review = {
     reviewString?: string
 };
 
 type Cake = {
     cakeType: string,
-    cakeReviews?: Review[],
+    cakeReviews: Review[],
     baker: string,
     bildeURL: string
 };
@@ -26,8 +28,23 @@ cakes.push(cake)
 
 export default function Cake_review() {
     return(
-        <div>
-            
+        <div className={styles.allReviews}>
+            {
+                cakes.map((cake, index)=>(
+                    <div key={index} className={styles.cakeReview}>
+                        <h2>{cake.cakeType}</h2>
+                        <p>Laget av: {cake.baker}</p>
+                        {
+                            cake.cakeReviews.map((anmeldelse, j_index)=>(
+                                <div key={j_index}>
+                                    ssss
+                                </div>
+                            ))
+                        }
+                    </div>
+                ))
+            }
         </div>
     )
 }
+
