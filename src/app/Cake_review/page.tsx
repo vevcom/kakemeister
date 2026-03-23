@@ -1,4 +1,6 @@
-
+type Cake {
+    
+}
 
 export default function Cake_review() {
     return(
