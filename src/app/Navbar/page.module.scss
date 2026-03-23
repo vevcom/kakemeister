@@ -1,8 +1,12 @@
 .header {
-    background-color: green;
+    background-color: black;
+    display: flex;
+    justify-content: center;
 }
 
 .navbar {
+    gap: 10px;
+    margin: 10px;
     display: flex;
     flex-direction: row;
     padding: 10px;
@@ -10,7 +14,14 @@
 }
 
 .header_item {
-    color: red;
+    border-radius: 15%;
+    color: white;
     font-size: 16px;
     padding: 10px;
+}
+
+.header_item:hover {
+    text-decoration: underline;
+    text-decoration-color: yellow;
+    text-decoration-thickness: 3px;
 }
